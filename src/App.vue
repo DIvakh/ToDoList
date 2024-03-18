@@ -1,30 +1,38 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
-  <router-view/>
+  <ThemeSwitch></ThemeSwitch>
+  <AppHeader></AppHeader>
+  <AppFilters></AppFilters>
+  <main class="app-main">
+    <AppTodoList />
+    <AppAddTodo />
+  </main>
+  <AppFooter></AppFooter>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script lang="ts">
+import { defineComponent } from 'vue';
+import ThemeSwitch from './components/ThemeSwitch.vue';
+import AppHeader from './components/AppHeader.vue';
+import AppFilters from './components/AppFilters.vue';
+import AppFooter from './components/AppFooter.vue';
+import AppTodoList from './components/AppTodoList.vue';
+import AppAddTodo from './components/AppAddTodo.vue';
 
-nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
+export default defineComponent({
+  data() {
+    return {
+      checkbox: false as boolean
+    };
+  },
+  components: {
+    AppFooter,
+    AppFilters,
+    AppHeader,
+    AppTodoList,
+    AppAddTodo,
+    ThemeSwitch
   }
-}
-</style>
+});
+</script>
+
+<style lang="scss"></style>
