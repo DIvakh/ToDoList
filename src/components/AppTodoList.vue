@@ -1,6 +1,7 @@
 <template>
   <AppTodoItem
     @toggleTodo="toggleTodo"
+    @removeTodo="removeTodo"
     :todo="todo"
     :key="todo.id"
     v-for="todo in todos"
@@ -9,21 +10,28 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, PropType } from 'vue';
 import AppTodoItem from './AppTodoItem.vue';
-
 import Todo from '@/types/Todo';
 
 export default defineComponent({
   components: { AppTodoItem },
-  data(): Todo {
-    return {
-      todos: [
-        { id: 0, text: 'Some first', completed: true },
-        { id: 1, text: 'Some second', completed: false }
-      ]
-    };
+  props: {
+    todos: {
+      type: Array as PropType<Todo[]>
+    }
   },
-  methods: {}
+  methods: {
+    toggleTodo(id: number): void {
+      this.$emit('toggleTodo', id);
+    },
+    removeTodo(id: number): void {
+      this.$emit('removeTodo', id);
+    }
+  },
+  emits: {
+    toggleTodo: (id: number) => Number.isInteger(id),
+    removeTodo: (id: number) => Number.isInteger(id)
+  }
 });
 </script>
